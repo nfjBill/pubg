@@ -4,7 +4,7 @@ Add [CSS Module](https://github.com/css-modules/css-modules) loaders to your
 [create-react-app](https://github.com/facebookincubator/create-react-app) via
 [react-app-rewired](https://github.com/timarney/react-app-rewired).
 
-CSS Module styles can be written in CSS or LESS.
+CSS Module styles can be written in LESS.
 
 ## Installation
 
@@ -20,7 +20,7 @@ yarn add --dev pubg
 
 ## Usage
 
-Modular less under the `src` directory files:
+Less module under the `src` directory files:
 
 * `*.less`
 
