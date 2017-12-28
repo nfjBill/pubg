@@ -1,0 +1,30 @@
+{
+  "name": "pubg",
+  "version": "0.1.1",
+  "description": "The react lightweight framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nfjBill/pubg.git"
+  },
+  "author": "nfjbill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nfjBill/pubg/issues"
+  },
+  "homepage": "https://github.com/nfjBill/pubg#readme",
+  "dependencies": {
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "lodash.clonedeep": "^4.5.0"
+  },
+  "devDependencies": {
+    "jest": "^22.0.4"
+  },
+  "peerDependencies": {
+    "react-app-rewired": "^1.4.0"
+  }
+}
