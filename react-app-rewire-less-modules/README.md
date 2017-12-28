@@ -22,7 +22,6 @@ yarn add --dev pubg
 
 Use the following file extensions for any CSS Modules styles:
 
-* `*.css`
 * `*.less`
 
 ### Example
@@ -32,7 +31,7 @@ In your react-app-rewired configuration:
 ```javascript
 /* config-overrides.js */
 
-const rewireLess = require("react-app-rewire-less-modules");
+const rewireLess = require("pubg/react-app-rewire-less-modules");
 
 module.exports = function override(config, env) {
   // ...
@@ -45,7 +44,7 @@ module.exports = function override(config, env) {
 In your React application:
 
 ```less
-// src/App.module.less
+// src/App.less
 
 .app {
   color: aqua;
@@ -56,11 +55,11 @@ In your React application:
 }
 ```
 
-```jsx harmony
+```js harmony
 // src/App.js
 
 import React from 'react';
-import styles from './App.module.scss';
+import styles from './App.scss';
 
 export default ({text}) => (
     <div className={styles.app}>{text}</div>
