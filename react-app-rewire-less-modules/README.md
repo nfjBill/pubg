@@ -20,7 +20,7 @@ yarn add --dev pubg
 
 ## Usage
 
-Use the following file extensions for any CSS Modules styles:
+Modular less under the `src` directory files:
 
 * `*.less`
 
