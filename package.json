@@ -1,6 +1,6 @@
 {
   "name": "pubg",
-  "version": "0.1.1",
+  "version": "0.2.11",
   "description": "The react lightweight framework",
   "main": "index.js",
   "scripts": {
@@ -17,14 +17,28 @@
   },
   "homepage": "https://github.com/nfjBill/pubg#readme",
   "dependencies": {
+    "babel-eslint": "^8.1.2",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react-app": "^3.1.0",
+    "eslint": "^4.14.0",
+    "eslint-config-react-app": "^2.0.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-flowtype": "^2.40.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
-    "lodash.clonedeep": "^4.5.0"
+    "less-vars-to-js": "^1.2.1",
+    "lodash": "^4.17.4",
+    "react-dev-utils": "^4.2.1",
+    "ts-import-plugin": "^1.4.3"
   },
   "devDependencies": {
     "jest": "^22.0.4"
   },
   "peerDependencies": {
+    "react": "^16.2.0",
     "react-app-rewired": "^1.4.0"
   }
 }

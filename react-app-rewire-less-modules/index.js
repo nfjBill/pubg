@@ -1,42 +1,55 @@
-const cloneDeep = require("lodash.clonedeep");
-const path = require("path");
+const {cloneDeep} = require("lodash");
+const paths = require("../config/paths");
 const fs = require('fs');
-const {createLoaderMatcher, findRule, addAfterRule, addBeforeRule, cssRuleMatcher} = require('../utils/rule');
+const lessToJs = require('less-vars-to-js')
+const {
+  findRule,
+  addAfterRule,
+  addBeforeRule,
+  cssRuleMatcher,
+  cssLoaderMatcher,
+  postcssLoaderMatcher,
+  fileLoaderMatcher,
+} = require('../utils/rule');
 
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
-const appSrc = resolveApp('src');
-const appNodeModules = resolveApp('node_modules');
+const createRewireLess = function (lessLoaderOptions = {},
+                                   localIdentName = `[local]__[hash:base64:5]`) {
+  return function (config, env) {
+    const cssRule = findRule(config.module.rules, cssRuleMatcher)
+    const lessRule = cloneDeep(cssRule)
+    const lessModulesRule = cloneDeep(cssRule)
 
-const cssLoaderMatcher = createLoaderMatcher('css-loader')
-const postcssLoaderMatcher = createLoaderMatcher('postcss-loader')
-const fileLoaderMatcher = createLoaderMatcher('file-loader')
+    if (lessLoaderOptions.themePath) {
+      const themePath = paths.appPath + `/` + lessLoaderOptions.themePath;
 
-const createRewireLess = function (
-    lessLoaderOptions = {},
-    localIdentName = `[local]__[hash:base64:5]`
-) {
-    return function(config, env) {
-        const cssRule = findRule(config.module.rules, cssRuleMatcher)
-        const lessRule = cloneDeep(cssRule)
-        const lessModulesRule = cloneDeep(cssRule)
-
-        const add = (rule, include) => {
-            rule.test = /\.less$/
-            rule.include = include;
-            addAfterRule(rule, postcssLoaderMatcher, {loader: require.resolve("less-loader"), options: lessLoaderOptions})
-            addBeforeRule(config.module.rules, fileLoaderMatcher, rule)
+      fs.access(themePath, (err) => {
+        if (!err) {
+          lessLoaderOptions = Object.assign(
+            lessLoaderOptions,
+            {modifyVars: lessToJs(fs.readFileSync(themePath, 'utf8'))},
+          )
+        } else {
+          throw err;
         }
-
-        add(lessRule, appNodeModules);
-        add(lessModulesRule, appSrc);
-
-        const lessModulesRuleCssLoader = findRule(lessModulesRule, cssLoaderMatcher)
-        lessModulesRuleCssLoader.options = Object.assign({modules: true, localIdentName}, lessModulesRuleCssLoader.options)
-
-        return config
+      });
     }
+
+    const add = (rule, include) => {
+      rule.test = /\.less$/
+      rule.include = include;
+      addAfterRule(rule, postcssLoaderMatcher, {loader: require.resolve("less-loader"), options: lessLoaderOptions})
+      addBeforeRule(config.module.rules, fileLoaderMatcher, rule)
+    }
+
+    add(lessRule, paths.appNodeModules);
+    add(lessModulesRule, paths.appSrc);
+
+    const lessModulesRuleCssLoader = findRule(lessModulesRule, cssLoaderMatcher)
+    lessModulesRuleCssLoader.options = Object.assign({modules: true, localIdentName}, lessModulesRuleCssLoader.options)
+
+    return config
+  }
 }
 
 const rewireLess = createRewireLess();
