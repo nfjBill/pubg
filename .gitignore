@@ -32,6 +32,8 @@
 npm-debug.log
 testem.log
 /typings
+/.editorconfig
+/.eslintrc*
 
 # e2e
 /e2e/*.js
