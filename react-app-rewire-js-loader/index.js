@@ -1,5 +1,6 @@
 const paths = require('../config/paths');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
+const eslintConfig = require('eslint-config-react-app');
 
 const {
   findRule,
@@ -8,6 +9,17 @@ const {
 } = require('../utils/rule');
 
 module.exports = function (config, env) {
+  // config custom eslint rules
+  Object.assign(eslintConfig.rules, {
+    'no-empty-pattern': 0,
+  });
+
+  if (process.env.NODE_ENV === 'production') {
+    Object.assign(eslintConfig.rules, {
+      'no-console': 1,
+    });
+  }
+
   const jsPreLoader = findRule(
     config.module.rules,
     rule =>
@@ -24,13 +36,9 @@ module.exports = function (config, env) {
       options: {
         formatter: eslintFormatter,
         eslintPath: require.resolve('eslint'),
-        // @remove-on-eject-begin
-        baseConfig: {
-          extends: [require.resolve('eslint-config-react-app')],
-        },
+        baseConfig: eslintConfig,
         ignore: false,
         useEslintrc: false,
-        // @remove-on-eject-end
       },
       loader: require.resolve('eslint-loader'),
     },
@@ -42,13 +50,8 @@ module.exports = function (config, env) {
     include: paths.appSrc,
     loader: require.resolve('babel-loader'),
     options: {
-      // @remove-on-eject-begin
       babelrc: false,
       presets: [require.resolve('babel-preset-react-app')],
-      // @remove-on-eject-end
-      // This is a feature of `babel-loader` for webpack (not Babel itself).
-      // It enables caching results in ./node_modules/.cache/babel-loader/
-      // directory for faster rebuilds.
       cacheDirectory: true,
     },
   };

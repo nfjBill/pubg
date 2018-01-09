@@ -2,6 +2,7 @@ const {cloneDeep} = require("lodash");
 const paths = require("../config/paths");
 const fs = require('fs');
 const lessToJs = require('less-vars-to-js')
+
 const {
   findRule,
   addAfterRule,
@@ -11,7 +12,6 @@ const {
   postcssLoaderMatcher,
   fileLoaderMatcher,
 } = require('../utils/rule');
-
 
 const createRewireLess = function (lessLoaderOptions = {},
                                    localIdentName = `[local]__[hash:base64:5]`) {
