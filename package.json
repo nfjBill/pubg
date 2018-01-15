@@ -1,6 +1,6 @@
 {
   "name": "pubg",
-  "version": "0.2.20",
+  "version": "0.2.24",
   "description": "The react lightweight framework",
   "main": "index.js",
   "scripts": {
