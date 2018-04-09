@@ -10,10 +10,10 @@ const createRewireStyleLint = function (options = {
 
     return config;
   }
-}
+};
 
-const rewireImport = createRewireStyleLint();
+const rewireStyleLint = createRewireStyleLint();
 
-rewireImport.withOptions = createRewireStyleLint;
+rewireStyleLint.withOptions = createRewireStyleLint;
 
-module.exports = rewireImport;
+module.exports = rewireStyleLint;

@@ -1,4 +1,5 @@
-const tsImportPluginFactory = require('ts-import-plugin')
+const tsImportPluginFactory = require('ts-import-plugin');
+const { injectBabelPlugin } = require('react-app-rewired');
 const {getLoader} = require("react-app-rewired");
 
 const createRewireImport = function (
@@ -23,9 +24,11 @@ const createRewireImport = function (
       })
     };
 
+    config = injectBabelPlugin(['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }], config);
+
     return config;
   }
-}
+};
 
 const rewireImport = createRewireImport();
 

@@ -59,4 +59,4 @@ module.exports = function (config, env) {
   addBeforeRule(config.module.rules, fileLoaderMatcher, rule)
 
   return config;
-}
+};
